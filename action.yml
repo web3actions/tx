@@ -1,13 +1,32 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'ethtx'
+description: 'A GitHub Action to send Ethereum transactions.'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  seed-phrase:
+    desciption: 'The seed phrase for the wallet that sends the transaction.'
     required: true
-    default: '1000'
+  rpc-node:
+    description: 'An ethereum RPC node.'
+    required: false
+    default: 'https://mainnet.rpc.fiews.io/v1/free'
+  from:
+    description: 'The address for the sending account. Uses the web3.eth.defaultAccount property, if not specified. Or an address or index of a local wallet in web3.eth.accounts.wallet.'
+    required: false
+    default: ''
+  to:
+    description: 'The destination address of the message, left undefined for a contract-creation transaction.'
+    required: false
+    default: ''
+  value:
+    description: 'The value transferred for the transaction in wei, also the endowment if it’s a contract-creation transaction.'
+    required: false
+    default: '0'
+  data:
+    description: 'Either a ABI byte string containing the data of the function call on a contract, or in the case of a contract-creation transaction the initialisation code.'
+    required: false
+    default: ''
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  transactionHash:
+    description: 'The 32 bytes transaction hash.'
 runs:
   using: 'node12'
   main: 'dist/index.js'

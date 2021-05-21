@@ -1,18 +1,33 @@
 const core = require('@actions/core');
-const wait = require('./wait');
+const Web3 = require('web3');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 
-
-// most @actions toolkit packages have async methods
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    const seedPhrase = core.getInput('seed-phrase')
+    const rpcNode = core.getInput('rpc-node')
+    const walletProvider = new HDWalletProvider(seedPhrase, rpcNode)
+    const web3 = new Web3(walletProvider)
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    let from = core.getInput('from')
+    let to = core.getInput('to')
+    let value = core.getInput('value')
+    let data = core.getInput('data')
 
-    core.setOutput('time', new Date().toTimeString());
+    if (!from) {
+      const accounts = await web3.eth.getAccounts()
+      from = accounts[0]
+    }
+
+    const transactionHash = await web3.eth.sendTransaction({
+      from,
+      to,
+      value,
+      data
+    })
+    walletProvider.engine.stop()
+
+    core.setOutput('transactionHash', transactionHash);
   } catch (error) {
     core.setFailed(error.message);
   }
