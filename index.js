@@ -26,6 +26,8 @@ async function run() {
       data
     }).then(transactionHash => {
       core.setOutput('transactionHash', transactionHash);
+    }).catch(error => {
+      core.setFailed(error.message);
     }).finally(() => {
       walletProvider.engine.stop()
     })
