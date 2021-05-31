@@ -19,15 +19,16 @@ async function run() {
       from = accounts[0]
     }
 
-    const transactionHash = await web3.eth.sendTransaction({
+    web3.eth.sendTransaction({
       from,
       to,
       value,
       data
+    }).then(transactionHash => {
+      core.setOutput('transactionHash', transactionHash);
+    }).finally(() => {
+      walletProvider.engine.stop()
     })
-    walletProvider.engine.stop()
-
-    core.setOutput('transactionHash', transactionHash);
   } catch (error) {
     core.setFailed(error.message);
   }
