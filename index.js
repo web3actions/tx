@@ -28,6 +28,7 @@ async function run() {
     // contract interaction
     const abiInterface = new ethers.utils.Interface([`function ${functionSignature}`])
     const functionName = functionSignature.split('(')[0].replace(' ', '')
+    core.info(functionName)
 
     if (ethers.utils.isAddress(contract) && functionName) {
       txData.to = contract
@@ -37,6 +38,7 @@ async function run() {
       }
       const data = abiInterface.encodeFunctionData(functionName, functionInputs)
       txData.data = data
+      core.info(data)
     }
 
     // convert github user/repo to address
