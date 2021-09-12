@@ -1,6 +1,6 @@
 {
   "name": "@cryptoactions/tx",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A GitHub Action to send Ethereum transactions.",
   "main": "index.js",
   "scripts": {

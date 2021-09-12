@@ -34,7 +34,7 @@ async function run() {
       if (functionInputValuesJSON) {
         functionInputValues = JSON.parse(functionInputValuesJSON)
       }
-      const data = abiInterface.encodeFunctionData('testFunction', functionInputValues)
+      const data = abiInterface.encodeFunctionData(functionName, functionInputValues)
       txData.data = data
     }
 
