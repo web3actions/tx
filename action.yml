@@ -1,32 +1,48 @@
-name: 'ethtx'
-description: 'A GitHub Action to send Ethereum transactions.'
+name: tx
+description: A GitHub Action to send Ethereum transactions.
 inputs:
-  seed-phrase:
-    desciption: 'The seed phrase for the wallet that sends the transaction.'
-    required: true
   rpc-node:
-    description: 'An ethereum RPC node.'
+    description: An ethereum RPC node.
+    required: true
+  wallet-key:
+    desciption: The key for the account that sends the transaction.
     required: false
-    default: 'https://mainnet.rpc.fiews.io/v1/free'
-  from:
-    description: 'The address for the sending account. Uses the web3.eth.defaultAccount property, if not specified. Or an address or index of a local wallet in web3.eth.accounts.wallet.'
-    required: false
-    default: ''
+    default: null
   to:
-    description: 'The destination address of the message, left undefined for a contract-creation transaction.'
+    description: The receiving address. If provided a GitHub username or username and repo instead, the action will try to fetch the address from that repo's config.
     required: false
-    default: ''
+    default: null
   value:
-    description: 'The value transferred for the transaction in wei, also the endowment if it’s a contract-creation transaction.'
+    description: The value transferred for the transaction (in ether).
     required: false
-    default: '0'
-  data:
-    description: 'Either a ABI byte string containing the data of the function call on a contract, or in the case of a contract-creation transaction the initialisation code.'
+    default: null
+  message:
+    description: Addtional data for transactions to external addresses.
+    required: false
+    default: null
+  contract:
+    description: The address of the contract you want to call.
+    required: false
+    default: null
+  function:
+    description: The function name in case of contract interaction.
+    required: false
+    default: null
+  input-types:
+    description: The function input types in case of contract interaction.
     required: false
     default: ''
+  input-values:
+    description: The function input values in case of contract interaction.
+    required: false
+    default: null
+  gas-limit:
+    description: The maximum gas to spend on a transaction.
+    required: false
+    default: null
 outputs:
-  transactionHash:
-    description: 'The 32 bytes transaction hash.'
+  result:
+    description: The JSON encoded transaction object or return value.
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: node12
+  main: dist/index.js
