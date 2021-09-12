@@ -38258,8 +38258,8 @@ async function run() {
       const wallet = new ethers.Wallet(walletKey, provider)
       txData = await wallet.populateTransaction(txData)
       txData = await wallet.signTransaction(txData)
-      const tx = await provider.sendTransaction(txData)
       core.info(txData)
+      const tx = await provider.sendTransaction(txData)
       result = await tx.wait()
     } else {
       // contract read (only option where there is no key required)
