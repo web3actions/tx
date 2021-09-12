@@ -38263,8 +38263,8 @@ async function run() {
     } else {
       // contract read (only option where there is no key required)
       result = await provider.call(txData)
+      result = abiInterface.decodeFunctionResult(functionName, result)
       core.info(result)
-      result = abiInterface.decodeFunctionData(functionName, result)
     }
 
     core.setOutput('result', JSON.stringify(result))
