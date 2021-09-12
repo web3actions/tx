@@ -38264,9 +38264,9 @@ async function run() {
       // contract read (only option where there is no key required)
       result = await provider.call(txData)
       result = abiInterface.decodeFunctionResult(functionName, result)
-      core.info(result)
     }
 
+    core.info(result)
     core.setOutput('result', JSON.stringify(result))
   } catch (error) {
     core.setFailed(error.message)
