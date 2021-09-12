@@ -38251,9 +38251,9 @@ async function run() {
         ethers.utils.isAddress(cryptoActionsConfig.ethereum.address)
       ) {
         txData.to = cryptoActionsConfig.ethereum.address
+      } else {
+        throw new Error(`Could not resolve "${to}" to an Ethereum address.`)
       }
-    } else {
-      throw new Error(`Could not resolve "${to}" to an Ethereum address.`)
     }
 
     if (walletKey) {
