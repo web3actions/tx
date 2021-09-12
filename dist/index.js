@@ -38226,17 +38226,16 @@ async function run() {
     }
     
     // contract interaction
-    const functionSignatureRegex = /(^[a-z]+[a-z0-9]*)\(([0-9a-z, ]*)\) returns\(([0-9a-z, ]*)\)/i
-    const abiInterface = new ethers.utils.Interface([`function ${functionSignature})`])
-    const functionDetails = functionSignature.match(functionSignatureRegex)
+    const abiInterface = new ethers.utils.Interface([`function ${functionSignature}`])
+    const functionName = functionSignature.split('(')[0].replace(' ', '')
 
-    if (ethers.utils.isAddress(contract) && functionDetails) {
+    if (ethers.utils.isAddress(contract) && functionName) {
       txData.to = contract
       let functionInputs = []
       if (functionInputsJSON) {
         functionInputs = JSON.parse(functionInputsJSON)
       }
-      const data = abiInterface.encodeFunctionData(functionDetails[1], functionInputs)
+      const data = abiInterface.encodeFunctionData(functionName, functionInputs)
       txData.data = data
     }
 
@@ -38265,7 +38264,7 @@ async function run() {
     } else {
       // contract read (only option where there is no key required)
       result = await provider.call(txData)
-      abiInterface.decodeFunctionData(functionDetails[1], txData)
+      result = abiInterface.decodeFunctionData(functionName, result)
     }
 
     core.setOutput('result', JSON.stringify(result))
