@@ -38227,7 +38227,9 @@ async function run() {
     }
     
     // contract interaction
-    console.log(ethers.utils.isAddress(contract), contract, functionName)
+    core.info(ethers.utils.isAddress(contract))
+    core.info(contract)
+    core.info(functionName)
     if (ethers.utils.isAddress(contract) && functionName) {
       txData.to = contract
       const abiInterface = new ethers.utils.Interface([`function ${functionName}(${functionInputTypes})`])
