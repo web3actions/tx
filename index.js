@@ -57,8 +57,8 @@ async function run() {
       // sign tx
       const wallet = new ethers.Wallet(walletKey, provider)
       txData = await wallet.populateTransaction(txData)
-      txData = await wallet.signTransaction(txData)
       core.info(txData)
+      txData = await wallet.signTransaction(txData)
       const tx = await provider.sendTransaction(txData)
       result = await tx.wait()
     } else {
