@@ -12,9 +12,8 @@ async function run() {
     const etherValue = core.getInput('value')
     const message = core.getInput('message')
     const contract = core.getInput('contract')
-    const functionName = core.getInput('function')
-    const functionInputTypes = core.getInput('input-types')
-    const functionInputValuesJSON = core.getInput('input-values')
+    const functionSignature = core.getInput('function')
+    const functionInputsJSON = core.getInput('inputs')
     const gasLimit = core.getInput('gas-limit')
 
     // prepare tx
@@ -27,14 +26,17 @@ async function run() {
     }
     
     // contract interaction
-    if (ethers.utils.isAddress(contract) && functionName) {
+    const functionSignatureRegex = /(^[a-z]+[a-z0-9]*)\(([0-9a-z, ]*)\) returns\(([0-9a-z, ]*)\)/i
+    const abiInterface = new ethers.utils.Interface([`function ${functionSignature})`])
+    const functionDetails = functionSignature.match(functionSignatureRegex)
+
+    if (ethers.utils.isAddress(contract) && functionDetails) {
       txData.to = contract
-      const abiInterface = new ethers.utils.Interface([`function ${functionName}(${functionInputTypes})`])
-      let functionInputValues = []
-      if (functionInputValuesJSON) {
-        functionInputValues = JSON.parse(functionInputValuesJSON)
+      let functionInputs = []
+      if (functionInputsJSON) {
+        functionInputs = JSON.parse(functionInputsJSON)
       }
-      const data = abiInterface.encodeFunctionData(functionName, functionInputValues)
+      const data = abiInterface.encodeFunctionData(functionDetails[1], functionInputs)
       txData.data = data
     }
 
@@ -61,7 +63,9 @@ async function run() {
       const tx = await provider.sendTransaction(txData)
       result = await tx.wait()
     } else {
+      // contract read (only option where there is no key required)
       result = await provider.call(txData)
+      abiInterface.decodeFunctionData(functionDetails[1], txData)
     }
 
     core.setOutput('result', JSON.stringify(result))

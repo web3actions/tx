@@ -9,9 +9,8 @@ This action can be used perform any kind of EVM transaction.
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     contract: "0x..."
-    function: "getStatus"
-    # input-types: "string,uint8"
-    # inputs: "['${{ github.event.issue.node_id }}', 1]"
+    function: "getStatus(string,uint8) returns(bool)"
+    inputs: "['${{ github.event.issue.node_id }}', 1]"
 ```
 
 ### Write to contract
@@ -22,10 +21,9 @@ This action can be used perform any kind of EVM transaction.
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
     contract: "0x..."
-    function: "deposit"
-    # input-types: "string"
-    # inputs: "['${{ github.event.issue.node_id }}']"
-    # value: "0.01"
+    function: "deposit(string)"
+    inputs: "['${{ github.event.issue.node_id }}']"
+    value: "0.01"
 ```
 
 ### Send ETH to another account
@@ -39,7 +37,7 @@ The `message` field will be hex encoded data included in the transaction.
     wallet-key: ${{ secrets.WALLET_KEY }}
     to: "0x..."
     value: "0.01"
-    # message: "Hey!"
+    message: "Hey!"
 ```
 
 ### Send ETH to GitHub username
@@ -53,5 +51,4 @@ This works only for users who have configured an address to use with Crypto Acti
     wallet-key: ${{ secrets.WALLET_KEY }}
     to: "mktcode"
     value: "0.01"
-    # message: "Hey!"
 ```

@@ -25,15 +25,11 @@ inputs:
     required: false
     default: null
   function:
-    description: The function name in case of contract interaction.
+    description: The function name, input and return types (e.g. myFunc(uint256,address) returns(bool)) in case of contract interaction.
     required: false
     default: null
-  input-types:
-    description: The function input types in case of contract interaction.
-    required: false
-    default: ''
-  input-values:
-    description: The function input values in case of contract interaction.
+  inputs:
+    description: The JSON encoded function input values in case of contract interaction.
     required: false
     default: null
   gas-limit:
