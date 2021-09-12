@@ -27,9 +27,6 @@ async function run() {
     }
     
     // contract interaction
-    core.info(ethers.utils.isAddress(contract))
-    core.info(contract)
-    core.info(functionName)
     if (ethers.utils.isAddress(contract) && functionName) {
       txData.to = contract
       const abiInterface = new ethers.utils.Interface([`function ${functionName}(${functionInputTypes})`])
@@ -40,6 +37,9 @@ async function run() {
       const data = abiInterface.encodeFunctionData(functionName, functionInputValues)
       txData.data = data
     }
+
+    core.info(txData.to)
+    core.info('test')
 
     // convert github user/repo to address
     // matches "user" or "user/repo" according to github's naming restrictions
