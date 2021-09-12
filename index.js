@@ -38,9 +38,6 @@ async function run() {
       txData.data = data
     }
 
-    core.info(txData.to)
-    core.info('test')
-
     // convert github user/repo to address
     // matches "user" or "user/repo" according to github's naming restrictions
     if (!ethers.utils.isAddress(txData.to) && /^([a-z\d]+-)*[a-z\d]+(\/[\w\d-_]+)?$/i.test(txData.to)) {
@@ -67,7 +64,6 @@ async function run() {
       result = await provider.call(txData)
     }
 
-    console.log(result)
     core.setOutput('result', JSON.stringify(result))
   } catch (error) {
     core.setFailed(error.message)
