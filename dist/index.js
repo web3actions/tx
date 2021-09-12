@@ -38259,6 +38259,7 @@ async function run() {
       txData = await wallet.populateTransaction(txData)
       txData = await wallet.signTransaction(txData)
       const tx = await provider.sendTransaction(txData)
+      core.info(txData)
       result = await tx.wait()
     } else {
       // contract read (only option where there is no key required)
