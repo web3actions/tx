@@ -66,6 +66,7 @@ async function run() {
       result = abiInterface.decodeFunctionResult(functionName, result)
     }
 
+    core.info(typeof result)
     core.info(result)
     core.setOutput('result', JSON.stringify(result))
   } catch (error) {
