@@ -1,5 +1,5 @@
 {
-  "name": "ethtx-action",
+  "name": "@cryptoactions/tx",
   "version": "1.0.0",
   "description": "A GitHub Action to send Ethereum transactions.",
   "main": "index.js",
@@ -10,22 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mktcode/ethtx-action.git"
+    "url": "git+https://github.com/cryptoactions/tx.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "JavaScript",
+    "Ethereum"
   ],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mktcode/ethtx-action/issues"
+    "url": "https://github.com/cryptoactions/tx/issues"
   },
-  "homepage": "https://github.com/mktcode/ethtx-action#readme",
+  "homepage": "https://github.com/cryptoactions/tx#readme",
   "dependencies": {
     "@actions/core": "^1.5.0",
-    "@cryptoactions/sdk": "file:../sdk",
+    "@cryptoactions/sdk": "0.0.1",
     "ethers": "^5.4.6"
   },
   "devDependencies": {
