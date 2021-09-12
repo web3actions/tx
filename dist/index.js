@@ -38228,7 +38228,6 @@ async function run() {
     // contract interaction
     const abiInterface = new ethers.utils.Interface([`function ${functionSignature}`])
     const functionName = functionSignature.split('(')[0].replace(' ', '')
-    core.info(functionName)
 
     if (ethers.utils.isAddress(contract) && functionName) {
       txData.to = contract
@@ -38236,9 +38235,7 @@ async function run() {
       if (functionInputsJSON) {
         functionInputs = JSON.parse(functionInputsJSON)
       }
-      const data = abiInterface.encodeFunctionData(functionName, functionInputs)
-      txData.data = data
-      core.info(data)
+      txData.data = abiInterface.encodeFunctionData(functionName, functionInputs)
     }
 
     // convert github user/repo to address
@@ -38266,6 +38263,7 @@ async function run() {
     } else {
       // contract read (only option where there is no key required)
       result = await provider.call(txData)
+      core.info(result)
       result = abiInterface.decodeFunctionData(functionName, result)
     }
 
