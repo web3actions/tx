@@ -26,7 +26,7 @@
   "homepage": "https://github.com/cryptoactions/tx#readme",
   "dependencies": {
     "@actions/core": "^1.5.0",
-    "@cryptoactions/sdk": "0.0.1",
+    "@cryptoactions/sdk": "0.0.5",
     "ethers": "^5.4.6"
   },
   "devDependencies": {
