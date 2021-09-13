@@ -38214,15 +38214,17 @@ async function run() {
     const contract = core.getInput('contract')
     const functionSignature = core.getInput('function')
     const functionInputsJSON = core.getInput('inputs')
-    // const gasLimit = core.getInput('gas-limit')
+    const gasLimit = core.getInput('gas-limit')
 
     // prepare tx
     let result = null
     let txData = {
       to,
       value: etherValue ? ethers.utils.parseEther(etherValue) : '0',
-      data: message ? ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message)) : null,
-      // gasLimit
+      data: message ? ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message)) : null
+    }
+    if (gasLimit) {
+      txData.gasLimit = gasLimit
     }
     
     // contract interaction
