@@ -30,7 +30,7 @@
     "ethers": "^5.4.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.31.0",
+    "@vercel/ncc": "^0.31.1",
     "eslint": "^7.32.0"
   }
 }
