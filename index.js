@@ -14,7 +14,7 @@ async function run() {
     const contract = core.getInput('contract')
     const functionSignature = core.getInput('function')
     const functionInputsJSON = core.getInput('inputs')
-    const gasLimit = core.getInput('gas-limit')
+    // const gasLimit = core.getInput('gas-limit')
 
     // prepare tx
     let result = null
@@ -22,7 +22,7 @@ async function run() {
       to,
       value: etherValue ? ethers.utils.parseEther(etherValue) : '0',
       data: message ? ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message)) : null,
-      gasLimit
+      // gasLimit
     }
     
     // contract interaction
@@ -57,7 +57,6 @@ async function run() {
       // sign tx
       const wallet = new ethers.Wallet(walletKey, provider)
       txData = await wallet.populateTransaction(txData)
-      core.info(JSON.stringify(txData))
       txData = await wallet.signTransaction(txData)
       const tx = await provider.sendTransaction(txData)
       result = await tx.wait()
