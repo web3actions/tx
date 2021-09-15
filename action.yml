@@ -1,5 +1,8 @@
 name: "@cryptoactions/tx"
 description: A GitHub Action to send Ethereum transactions.
+branding:
+  icon: trending-up
+  color: purple
 inputs:
   rpc-node:
     description: An ethereum RPC node.
