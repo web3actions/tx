@@ -1,4 +1,4 @@
-name: tx
+name: transaction
 description: A GitHub Action to send Ethereum transactions.
 inputs:
   rpc-node:
