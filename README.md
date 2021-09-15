@@ -5,7 +5,7 @@ This action can be used perform any kind of EVM transaction.
 ### Read from contract
 
 ```yaml
-- uses: cryptoactions/tx@v1
+- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     contract: "0x..."
@@ -16,7 +16,7 @@ This action can be used perform any kind of EVM transaction.
 ### Write to contract
 
 ```yaml
-- uses: cryptoactions/tx@v1
+- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
@@ -31,7 +31,7 @@ This action can be used perform any kind of EVM transaction.
 The `message` field will be hex encoded data included in the transaction.
 
 ```yaml
-- uses: cryptoactions/tx@v1
+- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
