@@ -10,7 +10,7 @@ This action can be used perform any kind of EVM transaction.
     rpc-node: ${{ secrets.RPC_NODE }}
     contract: "0x..."
     function: "getStatus(string,uint8) returns(bool)"
-    inputs: "['${{ github.event.issue.node_id }}', 1]"
+    inputs: '["${{ github.event.issue.node_id }}", 1]'
 ```
 
 ### Write to contract
@@ -22,7 +22,7 @@ This action can be used perform any kind of EVM transaction.
     wallet-key: ${{ secrets.WALLET_KEY }}
     contract: "0x..."
     function: "deposit(string)"
-    inputs: "['${{ github.event.issue.node_id }}']"
+    inputs: '["${{ github.event.issue.node_id }}"]'
     value: "0.01"
 ```
 
