@@ -5,7 +5,7 @@ This action can be used perform any kind of EVM transaction.
 ### Read from contract
 
 ```yaml
-- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     contract: "0x..."
@@ -16,7 +16,7 @@ This action can be used perform any kind of EVM transaction.
 ### Write to contract
 
 ```yaml
-- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
@@ -31,7 +31,7 @@ This action can be used perform any kind of EVM transaction.
 The `message` field will be hex encoded data included in the transaction.
 
 ```yaml
-- uses: cryptoactions/tx@8ba603b9d689b9dfefd3f7d95ec3d4443443c067
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
@@ -45,10 +45,29 @@ The `message` field will be hex encoded data included in the transaction.
 This works only for users who have configured an address to use with Crypto Actions.
 
 ```yaml
-- uses: cryptoactions/tx@v1
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
     to: "mktcode"
     value: "0.01"
+```
+
+## Signatures
+
+You can request a signature from a 3rd-party signer workflow. (The GitHub token is needed to post the request and read the response signature.)
+
+```yaml
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
+  with:
+    rpc-node: ${{ secrets.RPC_NODE }}
+    wallet-key: ${{ secrets.WALLET_KEY }}
+    contract: "0x..."
+    # uint256,bytes must be the last two parameters
+    function: "deposit(string,uint256,bytes)"
+    # but you don't need to pass them to the function call manually. The tx action will do that automatically.
+    inputs: '["${{ github.event.issue.node_id }}"]'
+    value: "0.01"
+    signer: web3actions/signer
+    github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
