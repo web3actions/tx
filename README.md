@@ -13,6 +13,18 @@ This action can be used perform any kind of EVM transaction.
     inputs: '["${{ github.event.issue.node_id }}", 1]'
 ```
 
+You can also specifiy a network name and an infura key. This way users can now which network is actually being targeted by the workflow.
+
+```yaml
+- uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
+  with:
+    network: kovan
+    infura-key: ${{ secrets.INFURA_KEY }}
+    # ...
+```
+
+The node is now: `https://${network}.infura.io/v3/${infuraKey}`.
+
 ### Write to contract
 
 ```yaml
