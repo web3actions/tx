@@ -1,13 +1,21 @@
 const core = require('@actions/core')
+const github = require('@actions/github')
 const { ethers } = require('ethers')
-const { getConfig } = require('@cryptoactions/sdk')
+const { getConfig } = require('@web3actions/sdk')
 
 async function run() {
   try {
     // inputs
-    const walletKey = core.getInput('wallet-key')
-    const rpcNode = core.getInput('rpc-node')
+    const signer = core.getInput('signer')
+    const githubToken = core.getInput('github-token')
+    let rpcNode = core.getInput('rpc-node')
+    const network = core.getInput('network')
+    const infuraKey = core.getInput('infura-key')
+    if (network && infuraKey) {
+      rpcNode = `https://${network}.infura.io/v3/${infuraKey}`
+    }
     const provider = new ethers.providers.JsonRpcProvider(rpcNode)
+    const walletKey = core.getInput('wallet-key')
     const to = core.getInput('to')
     const etherValue = core.getInput('value')
     const message = core.getInput('message')
@@ -15,6 +23,48 @@ async function run() {
     const functionSignature = core.getInput('function')
     const functionInputsJSON = core.getInput('inputs')
     const gasLimit = core.getInput('gas-limit')
+
+
+    // get signature
+    let signature
+    if (signer && githubToken) {
+      const octokit = github.getOctokit(githubToken)
+      const signerRepo = signer.split('/')
+      const signatureRequest = await octokit.rest.issues.create({
+        owner: signerRepo[0],
+        repo: signerRepo[1],
+        body: JSON.stringify({
+          owner: github.context.repo.owner,
+          repo: github.context.repo.repo,
+          runId: github.context.runId
+        })
+      })
+  
+      // wait for signature
+      const interval = 10000
+      while (!signature) {
+        await new Promise(resolve => setTimeout(resolve, interval))
+  
+        const comments = await octokit.rest.issues.listComments({
+          owner: signerRepo[0],
+          repo: signerRepo[1],
+          issue_number: signatureRequest.data.number
+        })
+        comments.data.forEach(comment => {
+          try {
+            const signatureResponse = JSON.parse(comment.body)
+            if (
+              signatureResponse &&
+              signatureResponse.signature
+            ) {
+              signature = signatureResponse.signature
+            }
+          } catch (e) {
+            console.log(e)
+          }
+        })
+      }
+    }
 
     // prepare tx
     let result = null
@@ -36,6 +86,10 @@ async function run() {
       let functionInputs = []
       if (functionInputsJSON) {
         functionInputs = JSON.parse(functionInputsJSON)
+      }
+      if (signature) {
+        functionInputs.push(github.context.runId)
+        functionInputs.push(signature)
       }
       txData.data = abiInterface.encodeFunctionData(functionName, functionInputs)
     }

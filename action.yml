@@ -5,8 +5,14 @@ branding:
   color: purple
 inputs:
   rpc-node:
-    description: An ethereum RPC node.
-    required: true
+    description: An ethereum RPC node. Alternatively you can set a network name and an infura key.
+    required: false
+  network:
+    description: An ethereum network name (e.g. kovan, mainnet or polygon-mumbai).
+    required: false
+  infura-key:
+    description: An infura key.
+    required: false
   wallet-key:
     desciption: The key for the account that sends the transaction.
     required: false
@@ -37,6 +43,14 @@ inputs:
     default: null
   gas-limit:
     description: The maximum gas to spend on a transaction.
+    required: false
+    default: null
+  signer:
+    description: A repository with a signer workflow.
+    required: false
+    default: null
+  github-token:
+    description: A token to make API calls. Only required when using a signer.
     required: false
     default: null
 outputs:
