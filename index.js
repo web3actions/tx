@@ -97,13 +97,13 @@ async function run() {
     // convert github user/repo to address
     // matches "user" or "user/repo" according to github's naming restrictions
     if (!ethers.utils.isAddress(txData.to) && /^([a-z\d]+-)*[a-z\d]+(\/[\w\d-_]+)?$/i.test(txData.to)) {
-      const cryptoActionsConfig = await getConfig(to)
+      const web3Config = await getConfig(to)
       if (
-        cryptoActionsConfig &&
-        cryptoActionsConfig.ethereum &&
-        ethers.utils.isAddress(cryptoActionsConfig.ethereum.address)
+        web3Config &&
+        web3Config.ethereum &&
+        ethers.utils.isAddress(web3Config.ethereum.address)
       ) {
-        txData.to = cryptoActionsConfig.ethereum.address
+        txData.to = web3Config.ethereum.address
       } else {
         throw new Error(`Could not resolve "${to}" to an Ethereum address.`)
       }
