@@ -52,9 +52,9 @@ The `message` field will be hex encoded data included in the transaction.
     message: "Hey!"
 ```
 
-### Send ETH to GitHub username
+### Send ETH to GitHub user/repository
 
-This works only for users who have configured an address to use with Web3 Actions.
+This works only for users/repositories who have configured a receiving address to use with Web3 Actions.
 
 ```yaml
 - uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
@@ -64,6 +64,28 @@ This works only for users who have configured an address to use with Web3 Action
     to: "mktcode"
     value: "0.01"
 ```
+
+Repositories can configure an address (or other information) in a `web3.json` in the root directory or a `"web3"` section in a `package.json`.
+
+```json
+// web3.json
+{
+  "ethereum": {
+    "address": "0x123..."
+  }
+}
+```
+
+```json
+// package.json
+"web3": {
+  "ethereum": {
+    "address": "0x123..."
+  }
+}
+```
+
+Users can use their profile repository, named after their username.
 
 ## Signatures
 
