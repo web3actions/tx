@@ -54,7 +54,7 @@ The `message` field will be hex encoded data included in the transaction.
 
 ### Send ETH to GitHub username
 
-This works only for users who have configured an address to use with Crypto Actions.
+This works only for users who have configured an address to use with Web3 Actions.
 
 ```yaml
 - uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
