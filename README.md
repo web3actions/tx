@@ -1,6 +1,6 @@
 # Tx Action
 
-This action can be used perform any kind of EVM transaction.
+This action can be used to perform any kind of EVM transaction.
 
 ### Read from contract
 
@@ -13,7 +13,7 @@ This action can be used perform any kind of EVM transaction.
     inputs: '["${{ github.event.issue.node_id }}", 1]'
 ```
 
-You can also specifiy a network name and an infura key. This way users can now which network is actually being targeted by the workflow.
+You can also specifiy a network name and an infura key. This way users can know which network is actually being targeted by the workflow.
 
 ```yaml
 - uses: web3actions/tx@d3833db41e58cb4e7f329027ad30211a22e1c5e5
