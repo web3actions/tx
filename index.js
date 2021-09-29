@@ -33,6 +33,7 @@ async function run() {
       const signatureRequest = await octokit.rest.issues.create({
         owner: signerRepo[0],
         repo: signerRepo[1],
+        title: "Request Signature",
         body: JSON.stringify({
           owner: github.context.repo.owner,
           repo: github.context.repo.repo,
