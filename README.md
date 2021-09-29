@@ -61,7 +61,7 @@ This works only for users/repositories who have configured a receiving address t
   with:
     rpc-node: ${{ secrets.RPC_NODE }}
     wallet-key: ${{ secrets.WALLET_KEY }}
-    to: "mktcode"
+    to: "mktcode" # or user/repo
     value: "0.01"
 ```
 
