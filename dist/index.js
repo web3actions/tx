@@ -45940,8 +45940,9 @@ async function run() {
 
     core.info(JSON.stringify(result))
     core.setOutput('result', JSON.stringify(result))
-  } catch (error) {
-    core.setFailed(error.message)
+  } catch (e) {
+    console.log(e)
+    core.setFailed(e.message)
   }
 }
 
