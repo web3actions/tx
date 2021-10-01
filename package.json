@@ -27,7 +27,7 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
-    "@web3actions/sdk": "0.0.7",
+    "@web3actions/sdk": "0.0.8",
     "ethers": "^5.4.7"
   },
   "devDependencies": {
