@@ -1,4 +1,4 @@
-# Tx Action
+# Web3 Actions - TX Action
 
 This action can be used to perform any kind of EVM transaction.
 
